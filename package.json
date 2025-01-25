@@ -1,7 +1,20 @@
 {
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.36.2",
-    "express": "^4.21.2",
-    "sharp": "^0.33.5"
-  }
+    "name": "agamoto",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@anthropic-ai/sdk": "^0.36.2",
+        "@google-cloud/text-to-speech": "^5.8.0",
+        "axios": "^1.7.9",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "sharp": "^0.33.5"
+    }
 }
