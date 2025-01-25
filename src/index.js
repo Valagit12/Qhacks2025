@@ -11,6 +11,7 @@ dotnev.config();
 const app = express();
 const port = process.env.PORT;
 const claudeAPIKey = process.env.CLAUDE_API_KEY;
+const internalKey = process.env.INTERNAL_KEY;
 
 const textToSpeech = new TextToSpeech();
 const claude = new ClaudeClient(claudeAPIKey);
@@ -49,6 +50,13 @@ app.get("/connect", async (req, res) => {
 
 app.post("/describe", async (req, res) => {
     console.log(`Incoming request to describe.`);
+    const key = req.headers["authorization"];
+    if (key !== internalKey) {
+        console.log("Request Unauthorized");
+        res.status(401).send("Unauthorized");
+        return;
+    }
+
     const img = req.body;
     
     try {
@@ -100,6 +108,12 @@ app.get("/audio.mp3", async (req, res) => {
 
 app.post("/transcribe", async (req, res) => {
     console.log(`Incoming request to transcribe.`);
+    const key = req.headers["authorization"];
+    if (key !== internalKey) {
+        console.log("Request Unauthorized");
+        res.status(401).send("Unauthorized");
+        return;
+    }
     const img = req.body;
     
     try {

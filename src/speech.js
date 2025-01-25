@@ -4,7 +4,13 @@ const util = require("util");
 
 class TextToSpeech {
     constructor(langCode = "en-US", encoding = "MP3", voiceName = "en-US-Journey-F", streamEncoding = "OGG_OPUS") {
-        this.client = new textToSpeech.TextToSpeechClient();
+        this.client = new textToSpeech.TextToSpeechClient({
+            projectId: process.env.GCLOUD_PROJECT_ID,
+            credentials: {
+                client_email: process.env.GCLOUD_CLIENT_EMAIL,
+                private_key: process.env.GCLOUD_PRIVATE_KEY
+            }
+        });
         this.langCode = langCode;
         this.encoding = encoding;
         this.voiceName = voiceName;
