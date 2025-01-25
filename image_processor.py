@@ -35,13 +35,12 @@ def send_image_to_claude(output_image_path, api_key):
     :param api_key: Claude API key.
     :return: Response from Claude AI.
     """
-    client = anthropic.Anthropic(api_key=api_key)
     img_base64 = encode_image_to_base64(output_image_path)
-    
     image1_media_type = 'image/jpeg'
-    message = client.messages.create(
-        model="claude-3-5-sonnet-20241022",
-        max_tokens=2000,
+    message = 'I did not get anything'
+    client = anthropic.Anthropic(api_key=api_key)
+    with client.messages.stream(
+        max_tokens=1024,
         messages=[
             {
                 "role": "user",
@@ -61,7 +60,19 @@ def send_image_to_claude(output_image_path, api_key):
                 ],
             }
         ],
-    )
+        model="claude-3-5-sonnet-20241022",
+    ) as stream:
+        for text in stream.text_stream:
+            print(text, end="", flush=True)
+            if (message == 'I did not get anything'):
+                message = text
+            else:
+                message += text
+    print()
+    print()
+    for i in stream:
+        print('this is the stuff you want')
+    
     return message
 
 # Example usage:

@@ -10,17 +10,6 @@ glasses = Flask(__name__)
 def home():
     return "Welcome to the Flask web server!"
 
-# Define a route that listens for POST requests
-@glasses.route('/receive', methods=['POST'])
-def receive():
-    # Get JSON data sent in the POST request
-    data = request.get_json()
-
-    if data:
-        return jsonify({"status": "success", "received_data": data}), 200
-    else:
-        return jsonify({"status": "error", "message": "No data received"}), 400
-
 # Define a route that listens for GET requests with query parameters
 @glasses.route('/query', methods=['GET'])
 def query():
@@ -37,6 +26,7 @@ def query():
     api_key = os.environ["CLAUDE_KEY"]
     response = send_image_to_claude(output_image_path, api_key)
     print(response)
+    
     return ''
 
 

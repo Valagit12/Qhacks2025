@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.36.2",
+    "express": "^4.21.2",
+    "sharp": "^0.33.5"
+  }
+}
