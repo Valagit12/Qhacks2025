@@ -105,12 +105,6 @@ app.get("/audio.mp3", async (req, res) => {
         return res.status(404).send("MP3 file not found");
     }
 
-    // Set headers
-    // res.set({
-    //     "Content-Type": "audio/mpeg",
-    //     "Content-Disposition": "inline", // Optional: "attachment" for download
-    // });
-
     const stat = fs.statSync(filePath);
 
     res.writeHead(200, {
@@ -121,9 +115,6 @@ app.get("/audio.mp3", async (req, res) => {
     const readStream = fs.createReadStream(filePath);
     readStream.pipe(res);
 
-    // Stream the MP3 file
-    // const readStream = fs.createReadStream(filePath);
-
     // Handle errors
     readStream.on("error", (err) => {   
         console.error("Error streaming audio:", err);
@@ -133,8 +124,6 @@ app.get("/audio.mp3", async (req, res) => {
     readStream.on("end", () => {
         readStream.close();
     });
-
-    // readStream.pipe(res);
 });
 
 app.post("/transcribe", async (req, res) => {

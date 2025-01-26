@@ -40,8 +40,6 @@ class TextToSpeech {
         };
 
         const stream = await this.client.streamingSynthesize();
-        // stream.on('data', (response) => { onData(response); });
-        // stream.on('error', (err) => { throw(err) });
 
         stream.write(request);
 
