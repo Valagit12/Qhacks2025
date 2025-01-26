@@ -34,6 +34,7 @@ class ClaudeClient {
                 ],
                 model: 'claude-3-5-sonnet-20241022',
                 max_tokens: 1024,
+                cache_control: {"type": "ephemeral"}
             });
             
             return response;

@@ -1,6 +1,7 @@
 const express = require("express");
 const dotnev = require("dotenv");
 const axios = require("axios");
+const sharp = require("sharp");
 const fs = require("fs");
 const path = require("path");
 const TextToSpeech = require("./speech.js");
@@ -48,6 +49,15 @@ app.get("/connect", async (req, res) => {
     }
 });
 
+app.get("/test", async (req, res) => {
+    const audio = await textToSpeech.synthTextToSpeech("Loading response...");
+    const outputFilePath = path.join(__dirname, "loading.mp3");
+
+    // Write the audio file to disk
+    fs.writeFileSync(outputFilePath, audio);
+    res.status(200).send();
+});
+
 app.post("/describe", async (req, res) => {
     console.log(`Incoming request to describe.`);
     const key = req.headers["authorization"];
@@ -57,7 +67,13 @@ app.post("/describe", async (req, res) => {
         return;
     }
 
-    const img = req.body;
+    let img = req.body;
+    img = await sharp(img).rotate(90).toBuffer();
+
+    const imgPath = path.join(__dirname, "image.jpg");
+    fs.writeFile(imgPath, img, () => {});
+
+    console.log("done");
     
     try {
         const description = await claude.requestImageDescription(img);
@@ -90,20 +106,35 @@ app.get("/audio.mp3", async (req, res) => {
     }
 
     // Set headers
-    res.set({
-        "Content-Type": "audio/mpeg",
-        "Content-Disposition": "inline", // Optional: "attachment" for download
+    // res.set({
+    //     "Content-Type": "audio/mpeg",
+    //     "Content-Disposition": "inline", // Optional: "attachment" for download
+    // });
+
+    const stat = fs.statSync(filePath);
+
+    res.writeHead(200, {
+        'Content-Type': 'audio/mpeg',
+        'Content-Length': stat.size
     });
 
-    // Stream the MP3 file
     const readStream = fs.createReadStream(filePath);
     readStream.pipe(res);
+
+    // Stream the MP3 file
+    // const readStream = fs.createReadStream(filePath);
 
     // Handle errors
     readStream.on("error", (err) => {   
         console.error("Error streaming audio:", err);
         res.status(500).send("Error playing audio");
     });
+
+    readStream.on("end", () => {
+        readStream.close();
+    });
+
+    // readStream.pipe(res);
 });
 
 app.post("/transcribe", async (req, res) => {
