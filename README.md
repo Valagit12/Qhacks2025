@@ -6,7 +6,7 @@ LUNA is an assistive wearable that helps blind and low-vision individuals unders
 
 ## 🏆 Our Journey
 
-- **January 2025** — We built the first prototype of LUNA at QHacks 2025 and won **1st Place Overall** for our vision-driven accessibility solution. Check out the [devpost][https://devpost.com/software/luna-nblywg] for the demo, and an in depth breakdown of our initial tech stack.
+- **January 2025** — We built the first prototype of LUNA at QHacks 2025 and won **1st Place Overall** for our vision-driven accessibility solution. Check out the [devpost](https://devpost.com/software/luna-nblywg) for the demo, and an in depth breakdown of our initial tech stack.
 - **Spring 2025** — Our team was selected for the **Hult Prize regional round**, where we pitched LUNA as a socially impactful startup addressing disability inclusion through technology.
 - **Today** — We're actively pursuing LUNA, with an early-stage product, ongoing user research, and a growing community of supporters.
 
