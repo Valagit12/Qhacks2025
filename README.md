@@ -23,7 +23,7 @@ LUNA is an assistive wearable that helps blind and low-vision individuals unders
 ## 🚀 What's Next
 
 We’re currently:
-- Developing our next-gen prototype with Bluetooth Low Energy connectivity and a React Native app for fast connectivity on any WiFi network.
+- Developing our next-gen prototype with Bluetooth Low Energy and a React Native app for fast connectivity on any WiFi network.
 - Partnering with blind and low-vision users for testing and feedback
 - Exploring funding and accelerator opportunities
 
